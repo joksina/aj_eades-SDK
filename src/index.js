@@ -1,4 +1,4 @@
-import ENDPOINTS from './constant'
+import ENDPOINTS from './constants.js'
 
 class LOTR {
   constructor(apiKey) {
@@ -23,12 +23,37 @@ class LOTR {
     return await response.json();
   }
 
-  async getMovies() {
-    const url = `${this.apiURL}${ENDPOINTS.MOVIES}`;
+  async getData(urlLink) {
+    const url = `${urlLink}`;
     const data = await this.fetchAPI(url);
-    return data.docs;
+    return data;
+  }
+
+  async getMovies() {
+    const url = `${this.apiURL}/${ENDPOINTS.MOVIE}`;
+    return this.getData(url);
+  }
+
+  async getMovieByID(id) {
+    const url = `${this.apiURL}${ENDPOINTS.MOVIE}/${id}`;
+    return this.getData(url);
+  }
+
+  async getMovieQuoteByID(id) {
+    const url = `${this.apiURL}${ENDPOINTS.MOVIE}/${id}/${ENDPOINTS.QUOTE}`;
+    return this.getData(url);
+  }
+
+  async getQuote() {
+    const url = `${this.apiURL}/${ENDPOINTS.QUOTE}`;
+    return this.getData(url);
+  }
+
+  async getQuoteByID(id) {
+    const url = `${this.apiURL}${ENDPOINTS.QUOTE}/${id}`;
+    return this.getData(url);
   }
 
 }
 
-module.exports = LOTR;
+export default LOTR;

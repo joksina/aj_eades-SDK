@@ -4,6 +4,8 @@ class LOTR {
   constructor(apiKey) {
     this.apiKey = apiKey;
     this.apiURL = ENDPOINTS.DEFAULT_URL;
+    this.movieURL = `${this.apiURL}${ENDPOINTS.MOVIE}`;
+    this.quoteURL = `${this.apiURL}/${ENDPOINTS.QUOTE}`;
   }
 
   async fetchAPI(url, options = {}) {
@@ -23,35 +25,33 @@ class LOTR {
     return await response.json();
   }
 
-  async getData(urlLink) {
+  async getMovieData(urlLink) {
     const url = `${urlLink}`;
     const data = await this.fetchAPI(url);
     return data;
   }
 
   async getMovies() {
-    const url = `${this.apiURL}/${ENDPOINTS.MOVIE}`;
-    return this.getData(url);
+    return this.getMovieData(this.movieURL);
   }
 
   async getMovieByID(id) {
-    const url = `${this.apiURL}${ENDPOINTS.MOVIE}/${id}`;
-    return this.getData(url);
+    const url = `${this.movieURL}/${id}`;
+    return this.getMovieData(url);
   }
 
   async getMovieQuoteByID(id) {
-    const url = `${this.apiURL}${ENDPOINTS.MOVIE}/${id}/${ENDPOINTS.QUOTE}`;
-    return this.getData(url);
+    const url = `${this.movieURL}/${id}/${ENDPOINTS.QUOTE}`;
+    return this.getMovieData(url);
   }
 
   async getQuote() {
-    const url = `${this.apiURL}/${ENDPOINTS.QUOTE}`;
-    return this.getData(url);
+    return this.getMovieData(this.quoteURL);
   }
 
   async getQuoteByID(id) {
-    const url = `${this.apiURL}${ENDPOINTS.QUOTE}/${id}`;
-    return this.getData(url);
+    const url = `${this.quoteURL}/${id}`;
+    return this.getMovieData(url);
   }
 
 }
